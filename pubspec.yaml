@@ -62,6 +62,7 @@ flutter:
     - assets/ic_instagram.svg
     - assets/post.jpg
     - assets/download.jpg
+    - assets/red.jpg
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

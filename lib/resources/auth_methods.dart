@@ -7,11 +7,14 @@ import 'package:omar/models/user.dart' as model;
 import 'package:omar/resources/storage_methods.dart';
 import 'package:omar/utils/utils.dart';
 
+/// This class contains methods for user authentication and user details retrieval.
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // get user details
+  /// This method retrieves user details from Firestore.
+  ///
+  /// Returns a [model.User] object.
   Future<model.User> getUserDetails() async {
     var currentUser = _auth.currentUser!;
 
@@ -21,7 +24,9 @@ class AuthMethods {
     return model.User.fromSnap(snap);
   }
 
-  //sign up user
+  /// This method signs up a user with the provided email, password, username, bio, file, and context.
+  ///
+  /// Returns a [String] indicating the success or failure of the operation.
   Future<String> signInUser({
     required String email,
     required String password,
@@ -44,7 +49,7 @@ class AuthMethods {
 
         //upload the image to firebase storage
         String photoUrl = await StorageMethods()
-            .uploadImageToFirebase('ProfilePics', file, false);
+            .uploadImageToStorage('ProfilePics', file, false);
 
         model.User user = model.User(
           username: username,
@@ -78,7 +83,9 @@ class AuthMethods {
     return res;
   }
 
-  //login in user
+  /// This method logs in a user with the provided email, password, and context.
+  ///
+  /// Returns a [String] indicating the success or failure of the operation.it's mine.
   Future<String> logInUser({
     required String email,
     required String password,

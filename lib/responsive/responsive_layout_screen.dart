@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:omar/providers/user_provider.dart';
 import 'package:omar/screens/login_screen.dart';
-import 'package:omar/utils/dimensions.dart';
+import 'package:omar/utils/global_variables.dart';
 import 'package:provider/provider.dart';
 
 class RsponsiveLayout extends StatefulWidget {

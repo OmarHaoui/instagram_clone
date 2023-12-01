@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
+/// A class representing a user in the application.
 class User {
   final String username;
   final String email;
@@ -10,6 +10,7 @@ class User {
   final List followers;
   final List following;
 
+  /// Constructor for the User class.
   User({
     required this.username,
     required this.email,
@@ -20,6 +21,7 @@ class User {
     required this.following,
   });
 
+  /// Converts the User object to a JSON object.
   Map<String, dynamic> toJson() => {
         'username': username,
         'email': email,
@@ -30,6 +32,7 @@ class User {
         'following': following,
       };
 
+  /// Creates a User object from a DocumentSnapshot.
   static User fromSnap(DocumentSnapshot snap) {
     var snapshot = (snap.data() as Map<String, dynamic>);
 

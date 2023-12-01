@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:omar/utils/colors.dart';
+import 'package:omar/utils/global_variables.dart';
 
 class mobileScreenLayout extends StatefulWidget {
   const mobileScreenLayout({super.key});
@@ -12,14 +11,38 @@ class mobileScreenLayout extends StatefulWidget {
 
 class _mobileScreenLayoutState extends State<mobileScreenLayout> {
   int _page = 0;
+  late PageController pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    pageController.dispose();
+  }
+
+  void navigationTapped(int page) {
+    pageController.jumpToPage(page);
+  }
+
+  void onPageChanged(int page) {
+    setState(() {
+      _page = page;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(
-          'This is mobile',
-        ),
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: pageController,
+        onPageChanged: onPageChanged,
+        children: homeScreenItems,
       ),
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 30,
@@ -62,6 +85,7 @@ class _mobileScreenLayoutState extends State<mobileScreenLayout> {
             label: ' ',
           ),
         ],
+        onTap: navigationTapped,
       ),
     );
   }
