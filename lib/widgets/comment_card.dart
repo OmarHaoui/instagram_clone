@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:omar/models/user.dart';
 import 'package:omar/providers/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -17,16 +18,15 @@ class _CommentCardState extends State<CommentCard> {
     final User user = Provider.of<UserProvider>(context).getUser;
 
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 18, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
       child: Row(
         children: [
           CircleAvatar(
-            radius: 18,
-            backgroundImage: AssetImage('assets/post.jpg'),
-          ),
+              radius: 18,
+              backgroundImage: NetworkImage(widget.snap['profilePic'])),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(left: 16),
+              padding: const EdgeInsets.only(left: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -35,22 +35,23 @@ class _CommentCardState extends State<CommentCard> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "username",
-                          style: TextStyle(
+                          text: widget.snap['name'],
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         TextSpan(
-                          text: "Some discription to insert",
+                          text: '  ${widget.snap['text']}',
                         ),
                       ],
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 4),
+                    padding: const EdgeInsets.only(top: 4),
                     child: Text(
-                      '24/11/2023',
-                      style: TextStyle(
+                      DateFormat.yMMMd()
+                          .format(widget.snap['datePublished'].toDate()),
+                      style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                       ),
@@ -61,9 +62,10 @@ class _CommentCardState extends State<CommentCard> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(8),
-            child: Icon(
+            padding: const EdgeInsets.all(8),
+            child: const Icon(
               Icons.favorite,
+              //TODO: make a favorite iconbutton using the animation we made
               size: 16,
             ),
           )

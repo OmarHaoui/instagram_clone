@@ -39,6 +39,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
             .collection('posts')
             .doc(widget.snap['postId'])
             .collection('comments')
+            .orderBy('datePublished', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -49,7 +50,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) => CommentCard(
-              snap: snapshot.data!.docs[index],
+              snap: snapshot.data!.docs[index].data(),
             ),
           );
         },
